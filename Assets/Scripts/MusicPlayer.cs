@@ -2,10 +2,10 @@
 using System.Collections;
 
 public class MusicPlayer : MonoBehaviour {
-	
 	static MusicPlayer instance = null;
 	
-	void Start () {
+	void Awake () { //on wake because script execution order is Awake>Start>Update.
+					//Therefore, there is a lag glitch if we code this on Start()
 		if (instance != null) {
 			Destroy (gameObject); //destroys the duplicate that is created 
 		}
@@ -14,9 +14,15 @@ public class MusicPlayer : MonoBehaviour {
 			GameObject.DontDestroyOnLoad (gameObject); //makes sure it doesn't get destroyed
 		}
 	}
+	void Start () {
+
+	}
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
 }
+
+//http://gameprogrammingpatterns.com/singleton.html
+//http://wiki.unity3d.com/index.php/Singleton
