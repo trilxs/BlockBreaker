@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class MusicPlayer : MonoBehaviour {
+
 	static MusicPlayer instance = null;
 	
 	void Awake () { //on wake because script execution order is Awake>Start>Update.
