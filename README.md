@@ -1,2 +1,2 @@
 # BlockBreaker
-Aliens remake on Unity
+Pong remake on Unity
