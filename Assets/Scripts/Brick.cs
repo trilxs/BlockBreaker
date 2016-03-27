@@ -3,23 +3,36 @@ using System.Collections;
 
 public class Brick : MonoBehaviour {
 
-	public int maxHits;
 	public Sprite[] hitSprites;
+	public static int breakableCount = 0;
+	public AudioClip crack;
+	public AudioClip destroyed;
 	private LevelManager levelManager;
 	private int timesHit;
+	private bool isBreakable;
 	
 	void Start () {
+	isBreakable = (this.tag == "Breakable");
+	if (isBreakable) breakableCount++;
 	levelManager = GameObject.FindObjectOfType<LevelManager>();
-		timesHit = 0;
+	timesHit = 0;
 	}
 	
-	void OnCollisionEnter2D(Collision2D col) {
+	void OnCollisionEnter2D (Collision2D col) {
+		AudioSource.PlayClipAtPoint (crack, transform.position);
+		if (isBreakable) {
+			HandleHits();
+		}
+	}
+	
+	void HandleHits () {
 		timesHit++;
-		//SimulateWin();
-	}
-	
-	void Update () {
+		int maxHits = hitSprites.Length + 1; 
 		if (timesHit >= maxHits) {
+			breakableCount--;
+			Debug.Log (breakableCount);
+			AudioSource.PlayClipAtPoint (destroyed, transform.position);
+			levelManager.SimulateWin ();
 			Destroy (gameObject);
 		}
 		else {
@@ -27,17 +40,10 @@ public class Brick : MonoBehaviour {
 		}
 	}
 	
-	void LoadSprites() {
+	void LoadSprites () {
 		int spriteIndex = timesHit - 1;
-		this.GetComponent<SpriteRenderer>().sprite = hitSprites[spriteIndex]; 	
-	}
-	
-	void SimulateWin() {
-		if (Application.loadedLevel < 3) {
-			levelManager.LoadNextLevel();
-		}
-		else {
-			levelManager.LoadLevel ("Win");
+		if (hitSprites[spriteIndex]) {
+			this.GetComponent<SpriteRenderer>().sprite = hitSprites[spriteIndex]; 	
 		}
 	}
 }
