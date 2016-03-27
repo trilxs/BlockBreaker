@@ -4,6 +4,7 @@ using System.Collections;
 public class Brick : MonoBehaviour {
 
 	public int maxHits;
+	public Sprite[] hitSprites;
 	private LevelManager levelManager;
 	private int timesHit;
 	
@@ -21,7 +22,16 @@ public class Brick : MonoBehaviour {
 		if (timesHit >= maxHits) {
 			Destroy (gameObject);
 		}
+		else {
+			LoadSprites();
+		}
 	}
+	
+	void LoadSprites() {
+		int spriteIndex = timesHit - 1;
+		this.GetComponent<SpriteRenderer>().sprite = hitSprites[spriteIndex]; 	
+	}
+	
 	void SimulateWin() {
 		if (Application.loadedLevel < 3) {
 			levelManager.LoadNextLevel();
