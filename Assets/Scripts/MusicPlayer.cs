@@ -15,14 +15,6 @@ public class MusicPlayer : MonoBehaviour {
 			GameObject.DontDestroyOnLoad (gameObject); //makes sure it doesn't get destroyed
 		}
 	}
-	void Start () {
-
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }
 
 //http://gameprogrammingpatterns.com/singleton.html

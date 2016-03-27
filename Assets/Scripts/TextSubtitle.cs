@@ -6,7 +6,7 @@ public class TextSubtitle : MonoBehaviour {
 	public Text text;
 	
 	void Start () {
-		text.text = "LEVEL " + Application.loadedLevel;
+		text.text = "LEVEL " + (Application.loadedLevel - 1);
 	}
 	
 	void Update() {

@@ -19,8 +19,19 @@ public class Ball : MonoBehaviour {
 			} 
 		if (Input.GetMouseButtonDown (0) && !hasStarted) {
 			//The game has started. Give the ball some velocity
-			hasStarted = true;
-			this.rigidbody2D.velocity = new Vector2 (2f, 10f);
+			StartGame ();
+		}
+	}
+	
+	void StartGame(){
+		hasStarted = true;
+		if (!LevelManager.autoPlay) {
+			if (LevelManager.difficulty == "Easy")		  this.rigidbody2D.velocity = new Vector2 (1f, 5f);
+			else if (LevelManager.difficulty == "Medium") this.rigidbody2D.velocity = new Vector2 (2f, 10f);
+			else    									  this.rigidbody2D.velocity = new Vector2 (3f, 15f);
+		}
+		else {
+			this.rigidbody2D.velocity = new Vector2 (3f, 15f);
 		}
 	}
 	
